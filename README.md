@@ -29,13 +29,6 @@ O servo motor ajusta o ângulo do painel para alinhar-se com a direção da luz 
 Os dados das leituras dos LDRs, a posição do servo e o status da luminosidade são enviados via Serial, permitindo visualização e análise em tempo real no Node-RED.
 
 
-<h1>Futuras Implementações: </h1>
-
-Melhorias no Algoritmo de Detecção: Otimizar o cálculo do ângulo para aumentar a precisão.
-Conexão IoT: Enviar dados para uma plataforma de monitoramento remoto.
-Armazenamento de Dados: Registrar o histórico de movimento e condições de luminosidade para análise futura.
-Escalabilidade: Adaptação para sistemas maiores e integração com painéis solares reais.
-
 <h1>Integrantes do Projeto </h1>
 
 <table>
