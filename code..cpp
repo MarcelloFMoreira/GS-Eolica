@@ -1,16 +1,19 @@
 #include <Servo.h>
-#include <ArduinoJson.h> 
+#include <ArduinoJson.h>
 
 #define ldrPin1 A0
 #define ldrPin2 A1
 #define ldrPin3 A2
 #define servoPin 9
+#define potPin A3 
 
 Servo meuServo;
 
 int ldrValue1, ldrValue2, ldrValue3;
+int potValue;
+float EnergiaGerada;
 
-const int lowLightThreshold = 100; 
+const int lowLightThreshold = 100;
 
 void setup() {
   meuServo.attach(servoPin);
@@ -18,9 +21,14 @@ void setup() {
 }
 
 void loop() {
+
   ldrValue1 = analogRead(ldrPin1);
   ldrValue2 = analogRead(ldrPin2);
   ldrValue3 = analogRead(ldrPin3);
+
+
+  potValue = analogRead(potPin);
+  EnergiaGerada = (potValue / 1023.0) * 5.0; 
 
 
   String luminosityMessage = "OK";
@@ -28,6 +36,7 @@ void loop() {
     luminosityMessage = "Baixa";
   }
 
+  
   int servoPosition = 0;
   if (ldrValue1 > ldrValue2 && ldrValue1 > ldrValue3) {
     servoPosition = 0;
@@ -38,17 +47,18 @@ void loop() {
   }
   meuServo.write(servoPosition);
 
-
-  StaticJsonDocument<200> doc; 
+ 
+  StaticJsonDocument<200> doc;
   doc["ldr1"] = ldrValue1;
   doc["ldr2"] = ldrValue2;
   doc["ldr3"] = ldrValue3;
   doc["luminosity"] = luminosityMessage;
   doc["servoPosition"] = servoPosition;
+  doc["EnergiaGerada"] = EnergiaGerada; 
 
 
   serializeJson(doc, Serial);
-  Serial.println(); 
+  Serial.println();
 
-  delay(3000);
+  delay(1000);
 }
